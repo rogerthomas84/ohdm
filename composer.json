@@ -1,0 +1,19 @@
+{
+    "name": "rogerthomas84/ohdm",
+    "description": "OhDM is a PHP Object Document Mapper (ODM) for MongoDB",
+    "keywords": ["odm", "object document mapper", "ohdm"],
+    "homepage": "https://github.com/rogerthomas84/ohdm",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Roger Thomas",
+            "email": "rogere84@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2"
+    },
+    "autoload": {
+        "psr-0": { "OhDM": "" }
+    }
+}
