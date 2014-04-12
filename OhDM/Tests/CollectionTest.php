@@ -47,6 +47,21 @@ class CollectionTest extends OhDMTestBase
         $this->fail('expected exception');
     }
 
+    public function testMongoConnectsAfterInitialisedAndNotConnectedByDefault()
+    {
+        $config = $this->initConfig(array('connect' => false));
+        $this->assertFalse(
+            Config::getInstance()->mongo->connected
+        );
+        $collection = new FooBar();
+        $this->assertEquals('foo_bar', $collection->getSource());
+        $collection->save();
+        $collection->delete();
+        $this->assertTrue(
+            Config::getInstance()->mongo->connected
+        );
+    }
+
     public function testSavingCollectionWorksAsExpected()
     {
         $this->initConfig();
@@ -95,6 +110,28 @@ class CollectionTest extends OhDMTestBase
 
         $collection = new FooBar(); // not saved.
         $this->assertFalse($collection->delete());
+    }
+
+    public function testSavingRetrievalUpdating()
+    {
+        $this->initConfig();
+        $collection = new FooBar();
+        $collection->name = 'joe';
+        $collection->save();
+        $this->assertInstanceOf('\MongoId', $collection->getId());
+
+        $record = FooBar::findById($collection->getId());
+        $this->assertEquals('joe', $record->name);
+        $this->assertEquals($collection->getId()->__toString(), $record->getId()->__toString());
+        $record->name = 'jane';
+        $record->save();
+
+        $recordJane = FooBar::findById($record->getId());
+        $this->assertEquals('jane', $recordJane->name);
+        $this->assertEquals($collection->getId()->__toString(), $recordJane->getId()->__toString());
+        $recordJane->save();
+
+        $record->delete();
     }
 
     public function testGetAndSetIdWorkAsExpected()

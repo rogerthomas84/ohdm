@@ -11,8 +11,10 @@ OhDM is a an ODM which is a simple PHP library that eases the pain of interactin
 Stability
 ---------
 
-OhDM is a new project, so some things won't work as expected. We're classified right now as in alpha stage, and there
-isn't (yet) a release.
+OhDM is a new project, so some things won't work as expected. It's classified right now as in the early stages, and there
+is a version 1.0.0 which we're classing as stable.
+
+Saying that, things will be introduced to help enhance the library further but it'll be versioned accordingly.
 
 
 Help Out
