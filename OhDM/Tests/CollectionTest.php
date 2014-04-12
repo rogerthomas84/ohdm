@@ -112,6 +112,28 @@ class CollectionTest extends OhDMTestBase
         $this->assertFalse($collection->delete());
     }
 
+    public function testSavingRetrievalUpdating()
+    {
+        $this->initConfig();
+        $collection = new FooBar();
+        $collection->name = 'joe';
+        $collection->save();
+        $this->assertInstanceOf('\MongoId', $collection->getId());
+
+        $record = FooBar::findById($collection->getId());
+        $this->assertEquals('joe', $record->name);
+        $this->assertEquals($collection->getId()->__toString(), $record->getId()->__toString());
+        $record->name = 'jane';
+        $record->save();
+
+        $recordJane = FooBar::findById($record->getId());
+        $this->assertEquals('jane', $recordJane->name);
+        $this->assertEquals($collection->getId()->__toString(), $recordJane->getId()->__toString());
+        $recordJane->save();
+
+        $record->delete();
+    }
+
     public function testGetAndSetIdWorkAsExpected()
     {
         $id = new \MongoId();

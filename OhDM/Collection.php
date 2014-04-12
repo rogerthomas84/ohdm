@@ -198,9 +198,8 @@ class Collection
 
         $this->preUpdate();
         if (!empty($options)) {
-            $update = $collection->update(
-                array('_id' => $vals['_id']),
-                array('$set' => $updateVals),
+            $update = $collection->save(
+                $vals,
                 $options
             );
             $this->postUpdate();
@@ -208,9 +207,8 @@ class Collection
             return $update;
         }
 
-        $update = $collection->update(
-            array('_id' => $vals['_id']),
-            array('$set' => $updateVals)
+        $update = $collection->save(
+            $vals
         );
         $this->postUpdate();
 

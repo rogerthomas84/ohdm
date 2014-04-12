@@ -3,9 +3,18 @@ namespace OhDM\Tests;
 
 use OhDM\Config;
 use OhDM\Collection;
+use OhDM\Tests\TestCollections\FooBar;
+use OhDM\Tests\TestCollections\AlphabeticalCollection;
 
 class OhDMTestBase extends \PHPUnit_Framework_TestCase
 {
+    public function tearDown()
+    {
+        $config = $this->initConfig();
+        $this->dropCollectionByObject(new FooBar());
+        $this->dropCollectionByObject(new AlphabeticalCollection());
+    }
+
     /**
      * @param array $options (optional)
      * @return boolean
