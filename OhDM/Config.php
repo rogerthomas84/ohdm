@@ -2,6 +2,7 @@
 namespace OhDM;
 
 use OhDM\Exception\ConfigException;
+
 class Config
 {
     /**

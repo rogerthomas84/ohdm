@@ -47,6 +47,21 @@ class CollectionTest extends OhDMTestBase
         $this->fail('expected exception');
     }
 
+    public function testMongoConnectsAfterInitialisedAndNotConnectedByDefault()
+    {
+        $config = $this->initConfig(array('connect' => false));
+        $this->assertFalse(
+            Config::getInstance()->mongo->connected
+        );
+        $collection = new FooBar();
+        $this->assertEquals('foo_bar', $collection->getSource());
+        $collection->save();
+        $collection->delete();
+        $this->assertTrue(
+            Config::getInstance()->mongo->connected
+        );
+    }
+
     public function testSavingCollectionWorksAsExpected()
     {
         $this->initConfig();
