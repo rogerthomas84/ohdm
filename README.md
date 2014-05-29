@@ -1,4 +1,4 @@
-![Travis](https://travis-ci.org/rogerthomas84/ohdm.png)
+[![Build Status](https://travis-ci.org/rogerthomas84/ohdm.png)](http://travis-ci.org/rogerthomas84/ohdm)
 
 [View on Packagist](https://packagist.org/packages/rogerthomas84/ohdm)
 

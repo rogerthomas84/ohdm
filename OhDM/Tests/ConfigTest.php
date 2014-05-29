@@ -28,7 +28,7 @@ class ConfigTest extends OhDMTestBase
     {
         $config = $this->initConfig(array('connect' => false));
         $this->assertFalse(
-            Config::getInstance()->mongo->connected
+            @Config::getInstance()->mongo->connected
         );
     }
 }

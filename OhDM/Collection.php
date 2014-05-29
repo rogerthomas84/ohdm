@@ -222,7 +222,7 @@ class Collection
     final public function getConnection()
     {
         $config = Config::getInstance();
-        if ($config->mongo->connected !== true) {
+        if (@$config->mongo->connected !== true) {
             $config->mongo->connect();
         }
         return $config->mongo->selectCollection(
