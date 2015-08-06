@@ -142,6 +142,43 @@ class Collection
     }
 
     /**
+     * Find a single item in the collection and retrieve the object
+     * @param array $command
+     * @return Collection|boolean false
+     */
+    public static function findOne(array $command = array())
+    {
+        $query = array();
+        if (array_key_exists('query', $command)) {
+            $query = $command['query'];
+            if (!is_array($query)) {
+                return false;
+            }
+        }
+        $fields = array();
+        if (array_key_exists('fields', $command)) {
+            $fields = $command['fields'];
+            if (!is_array($fields)) {
+                return false;
+            }
+        }
+
+        $fqcn = get_called_class();
+        $instance = new $fqcn();
+        /* @var $instance Collection */
+        $connection = $instance->getConnection();
+        /* @var $connection \MongoCollection */
+
+        $record = $connection->findOne($query, $fields);
+        if (!empty($record)) {
+            $instance->populate($record);
+            return $instance;
+        }
+
+        return false;
+    }
+
+    /**
      * Delete the current document
      * @param array $options
      * @return boolean|mixed

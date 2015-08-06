@@ -66,6 +66,34 @@ class FindDocumentsTest extends OhDMTestBase
         }
     }
 
+    public function testCreateThenFindOne()
+    {
+        // Start clean.
+        $this->dropCollectionByObject(new FooBar());
+
+        $item = new FooBar();
+        $item->name = 'a';
+        $item->save();
+
+        $item = new FooBar();
+        $item->name = 'b';
+        $item->save();
+
+        $item = new FooBar();
+        $item->name = 'c';
+        $item->save();
+
+        $command = array(
+            'query' => array('name' => 'b'),
+            'fields' => array(),
+        );
+
+        $obj = FooBar::findOne($command);
+        $this->assertInstanceOf('\OhDM\Tests\TestCollections\FooBar', $obj);
+        $this->assertEquals('b', $obj->name);
+        $obj->delete();
+    }
+
     public function testCreateThenFind()
     {
         // Start clean.
